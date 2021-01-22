@@ -87,9 +87,6 @@ bintray {
     user = properties.getOrDefault("bintray.user", System.getenv('BINTRAY_USER'))
     key = properties.getOrDefault("bintray.apikey", System.getenv('BINTRAY_API_KEY'))
 
-    println user
-    println key
-
     configurations = ['archives']
     pkg {
         userOrg = bintrayOrganisation
@@ -141,6 +138,10 @@ task updateMajorVersion() {
     doFirst {
         updateVersion(updateType.major)
     }
+
+    doLast {
+        version = loadVersion()
+    }
 }
 
 // 更新次版本
@@ -149,6 +150,10 @@ task updateMinjorVersion() {
     doFirst {
         updateVersion(updateType.minjor)
     }
+
+    doLast {
+        version = loadVersion()
+    }
 }
 
 // 更新修正版本
@@ -156,6 +161,10 @@ task updateAmendmentVersion() {
 
     doFirst {
         updateVersion(updateType.amendment)
+    }
+
+    doLast {
+        project.version = loadVersion()
     }
 }
 
