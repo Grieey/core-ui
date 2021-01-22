@@ -47,16 +47,21 @@ dependencies {
 }
 
 ext {
+    // 显示在仓库中的package name
     bintrayName = 'core-ui'
-
+    // lib名称，其实是和上面一样的标识，用途不一样
     libraryName = 'core-ui'
-    artifact = 'fotoapparat'
-    bintrayRepo = 'core-ui'
+    // artifactId
+    artifact = 'core-ui'
+    // 仓库名称
+    bintrayRepo = 'core'
+    // lib版本
     libraryVersion = artifactVersion
-
+    // 说明网址，就github仓库地址
     siteUrl = 'https://github.com/Grieey/CoreUI'
+    // 版本控制，也是github地址
     gitUrl = 'https://github.com/Grieey/CoreUI.git'
-
+    // 库说明
     libraryDescription = 'Base class of activity、fragment、application'
 }
 

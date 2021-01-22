@@ -2,14 +2,15 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
 ext {
+    // bintray组织，没有创建就是你自己的id
     bintrayOrganisation = 'grieey'
-
+    // 发布者id
     publishedGroupId = 'grieey'
-
+    // 开发者信息
     developerId = 'grieey'
     developerName = 'grieey'
     developerEmail = 'yangq433520@gmail.com'
-
+    // 证书信息
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]
