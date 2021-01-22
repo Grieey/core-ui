@@ -159,11 +159,14 @@ task updateAmendmentVersion() {
     }
 }
 
-task releaseAmendment(dependsOn: ['updateAmendmentVersion', 'bintrayUpload'])
+task releaseAmendment(dependsOn: ['clean', 'updateAmendmentVersion', 'bintrayUpload'])
+updateAmendmentVersion.mustRunAfter clean
 bintrayUpload.mustRunAfter updateAmendmentVersion
 
-task releaseMinjor(dependsOn: ['updateMinjorVersion', 'bintrayUpload'])
+task releaseMinjor(dependsOn: ['clean', 'updateMinjorVersion', 'bintrayUpload'])
+updateMinjorVersion.mustRunAfter clean
 bintrayUpload.mustRunAfter updateMinjorVersion
 
-task releaseMajor(dependsOn: ['updateMajorVersion', 'bintrayUpload'])
+task releaseMajor(dependsOn: ['clean', 'updateMajorVersion', 'bintrayUpload'])
+updateMajorVersion.mustRunAfter clean
 bintrayUpload.mustRunAfter updateMajorVersion
