@@ -1,11 +1,12 @@
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
+apply from: '../versions.gradle'
 
 ext {
     // bintray组织，没有创建就是你自己的id
     bintrayOrganisation = 'grieey'
     // 发布者id
-    publishedGroupId = 'grieey'
+    publishedGroupId = 'com.github.grieey.core'
     // 开发者信息
     developerId = 'grieey'
     developerName = 'grieey'
@@ -16,8 +17,15 @@ ext {
     allLicenses = ["Apache-2.0"]
 }
 
+def loadVersion() {
+    def properties = new Properties()
+    def file = file('../libversions.properties')
+    properties.load(file.newDataInputStream())
+    return properties['ARTIFACT_VERSION']
+}
+
 group = publishedGroupId
-version = libraryVersion
+version = loadVersion()
 
 install {
     repositories.mavenInstaller {
@@ -100,3 +108,62 @@ bintray {
         }
     }
 }
+
+def updateVersion(int type) {
+    def properties = new Properties()
+    def file = file('../libversions.properties')
+    properties.load(file.newDataInputStream())
+    def SEPARATOR = '.'
+    def (majorCode, minjorCode, amendmentCode) = properties['ARTIFACT_VERSION'].tokenize(SEPARATOR)
+
+    switch (type) {
+        case updateType.major:
+            majorCode++
+            minjorCode = 0
+            amendmentCode = 0
+            break
+        case updateType.minjor:
+            minjorCode++
+            amendmentCode = 0
+            break
+        default:
+            amendmentCode++
+    }
+
+    properties['ARTIFACT_VERSION'] = majorCode + SEPARATOR + minjorCode + SEPARATOR + amendmentCode
+    println 'updateVersionTo ' + properties['ARTIFACT_VERSION'] + ' successed'
+    properties.store(file.newWriter(), null)
+}
+
+// 更新主版本
+task updateMajorVersion() {
+
+    doFirst {
+        updateVersion(updateType.major)
+    }
+}
+
+// 更新次版本
+task updateMinjorVersion() {
+
+    doFirst {
+        updateVersion(updateType.minjor)
+    }
+}
+
+// 更新修正版本
+task updateAmendmentVersion() {
+
+    doFirst {
+        updateVersion(updateType.amendment)
+    }
+}
+
+task releaseAmendment(dependsOn: ['updateAmendmentVersion', 'bintrayUpload'])
+bintrayUpload.mustRunAfter updateAmendmentVersion
+
+task releaseMinjor(dependsOn: ['updateMinjorVersion', 'bintrayUpload'])
+bintrayUpload.mustRunAfter updateMinjorVersion
+
+task releaseMajor(dependsOn: ['updateMajorVersion', 'bintrayUpload'])
+bintrayUpload.mustRunAfter updateMajorVersion

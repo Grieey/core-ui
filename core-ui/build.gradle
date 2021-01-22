@@ -4,8 +4,6 @@ plugins {
     id 'org.jetbrains.dokka'
 }
 
-apply from: '../versions.gradle'
-
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -55,8 +53,6 @@ ext {
     artifact = 'core-ui'
     // 仓库名称
     bintrayRepo = 'core'
-    // lib版本
-    libraryVersion = artifactVersion
     // 说明网址，就github仓库地址
     siteUrl = 'https://github.com/Grieey/CoreUI'
     // 版本控制，也是github地址
@@ -66,3 +62,4 @@ ext {
 }
 
 apply from: '../deploy.gradle'
+

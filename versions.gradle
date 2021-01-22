@@ -1,3 +1,7 @@
 ext {
-    artifactVersion = '0.0.2'
+    updateType = [
+            major    : 1,
+            minjor   : 2,
+            amendment: 3
+    ]
 }
