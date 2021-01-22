@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'org.jetbrains.dokka'
 }
 
 apply from: '../versions.gradle'
@@ -46,14 +47,14 @@ dependencies {
 }
 
 ext {
-    bintrayName = 'Grieey'
+    bintrayName = 'core-ui'
 
     libraryName = 'core-ui'
     artifact = 'fotoapparat'
     bintrayRepo = 'core-ui'
     libraryVersion = artifactVersion
 
-    siteUrl = ''
+    siteUrl = 'https://github.com/Grieey/CoreUI'
     gitUrl = 'https://github.com/Grieey/CoreUI.git'
 
     libraryDescription = 'Base class of activity、fragment、application'
