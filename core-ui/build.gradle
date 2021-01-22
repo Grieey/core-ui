@@ -3,6 +3,8 @@ plugins {
     id 'kotlin-android'
 }
 
+apply from: '../versions.gradle'
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -42,3 +44,19 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
+
+ext {
+    bintrayName = 'Grieey'
+
+    libraryName = 'core-ui'
+    artifact = 'fotoapparat'
+    bintrayRepo = 'core-ui'
+    libraryVersion = artifactVersion
+
+    siteUrl = ''
+    gitUrl = 'https://github.com/Grieey/CoreUI.git'
+
+    libraryDescription = 'Base class of activity、fragment、application'
+}
+
+apply from: '../deploy.gradle'
