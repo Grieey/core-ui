@@ -16,7 +16,9 @@ ext {
             computer               : Math.abs((System.getProperty("user.name") + "@"
                     + InetAddress.localHost.hostName).hashCode()),
             javaSourceCompatibility: JavaVersion.VERSION_1_8,
-            javaTargetCompatibility: JavaVersion.VERSION_1_8
+            javaTargetCompatibility: JavaVersion.VERSION_1_8,
+            jvm                    : "1.8",
+            kotlin                 : "1.4.10"
     ]
 
     androidx = [
