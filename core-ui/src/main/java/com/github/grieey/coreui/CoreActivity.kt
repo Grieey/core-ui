@@ -11,19 +11,21 @@ import com.github.grieey.coreui.notification.NotificationImpl
  * @author: Grieey
  */
 abstract class CoreActivity : AppCompatActivity(), INotification {
-    /**
-     * 方便获取顶层的对象
-     */
-    protected val parent: CoreActivity
-        get() = this
+  /**
+   * 方便获取顶层的对象
+   */
+  protected val parent: CoreActivity
+    get() = this
 
-    private val notificationDelegate: INotification by lazy { NotificationImpl(parent.window.decorView) }
+  lateinit var notificationDelegate: INotification
+    protected set
 
-    protected fun initNotficationStyle() {
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    notificationDelegate = NotificationImpl(parent.window.decorView)
+  }
 
-    }
-
-    override fun showNotificaion() {
-        notificationDelegate.showNotificaion()
-    }
+  override fun showNotificaion() {
+    notificationDelegate.showNotificaion()
+  }
 }
