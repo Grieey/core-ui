@@ -1,66 +1,68 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'org.jetbrains.dokka'
+  id 'com.android.library'
+  id 'kotlin-android'
 }
 
 ext {
-    // 显示在仓库中的package name
-    bintrayName = 'core-ui'
-    // lib名称，其实是和上面一样的标识，用途不一样
-    libraryName = 'core-ui'
-    // artifactId
-    artifact = 'core-ui'
-    // 仓库名称
-    bintrayRepo = 'core'
-    // 说明网址，就github仓库地址
-    siteUrl = 'https://github.com/Grieey/CoreUI'
-    // 版本控制，也是github地址
-    gitUrl = 'https://github.com/Grieey/CoreUI.git'
-    // 库说明
-    libraryDescription = 'Base class of activity、fragment、application'
+  // 显示在仓库中的package name
+  bintrayName = 'core-ui'
+  // lib名称，其实是和上面一样的标识，用途不一样
+  libraryName = 'core-ui'
+  // artifactId
+  artifact = 'core-ui'
+  // 仓库名称
+  bintrayRepo = 'core'
+  // 说明网址，就github仓库地址
+  siteUrl = 'https://github.com/Grieey/CoreUI'
+  // 版本控制，也是github地址
+  gitUrl = 'https://github.com/Grieey/CoreUI.git'
+  // 库说明
+  libraryDescription = 'Extensions base on kotlin standard lib'
 }
 
 apply from: '../deploy.gradle'
 
 android {
-    compileSdkVersion androids.compileSdkVersion
-    buildToolsVersion androids.buildToolsVersion
+  compileSdkVersion androids.compileSdkVersion
+  buildToolsVersion androids.buildToolsVersion
 
-    defaultConfig {
-        minSdkVersion androids.minSdkVersion
-        targetSdkVersion androids.compileSdkVersion
-        versionCode 1
-        versionName "1.0"
+  defaultConfig {
+    minSdkVersion androids.minSdkVersion
+    targetSdkVersion androids.compileSdkVersion
+    versionCode 1
+    versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
-    }
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    consumerProguardFiles "consumer-rules.pro"
+  }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
-    compileOptions {
-        sourceCompatibility androids.javaSourceCompatibility
-        targetCompatibility androids.javaSourceCompatibility
-    }
-    kotlinOptions {
-        jvmTarget = androids.jvm
-    }
+  }
+  compileOptions {
+    sourceCompatibility androids.javaSourceCompatibility
+    targetCompatibility androids.javaSourceCompatibility
+  }
+  kotlinOptions {
+    jvmTarget = androids.jvm
+  }
 }
 
 dependencies {
 
-    api "org.jetbrains.kotlin:kotlin-stdlib:${androids.kotlin}"
-    api "androidx.core:core-ktx:${androidx.ktx}"
-    api "androidx.appcompat:appcompat:${androidx.appcompat}"
-    api "com.google.android.material:material:${androidx.material}"
+  api "org.jetbrains.kotlin:kotlin-stdlib:${androids.kotlin}"
+  api "androidx.core:core-ktx:${androidx.ktx}"
+  api "androidx.appcompat:appcompat:${androidx.appcompat}"
+  api "com.google.android.material:material:${androidx.material}"
+  api "androidx.constraintlayout:constraintlayout:${androidx.constraintlayout}"
 
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+  api "com.github.Grieey:CoreExt:${core.coreExt}"
+
+  testImplementation 'junit:junit:4.+'
+  androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
 

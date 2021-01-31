@@ -11,7 +11,9 @@ import android.widget.FrameLayout
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.doOnLayout
 import androidx.core.view.postDelayed
-import androidx.core.view.setPadding
+import com.github.grieey.core_ext.dp
+import com.github.grieey.core_ext.int
+import com.github.grieey.core_ext.sp
 import com.github.grieey.core_ui.R
 import java.util.*
 import kotlin.concurrent.schedule
@@ -32,6 +34,8 @@ class NotificationImpl(private val decorView: View) : INotification {
       return field
     }
 
+  private var propertyName = "translationY"
+
   @Volatile
   private var isAnimating = false
 
@@ -40,9 +44,9 @@ class NotificationImpl(private val decorView: View) : INotification {
    */
   var notificationView = AppCompatTextView(decorView.context)
     .apply {
-      textSize = 60F
+      textSize = 12.sp
       setTag(R.id.notification_view, true)
-      setPadding(48)
+      setPadding(12.dp.int, 4.dp.int, 12.dp.int, 4.dp.int)
       setTextColor(resources.getColor(R.color.white_95, null))
       setBackgroundResource(R.drawable.shape_purple200_20)
     }
@@ -93,6 +97,9 @@ class NotificationImpl(private val decorView: View) : INotification {
       }
     }
 
+  /**
+   * 动画时长
+   */
   var duration: Long = 330L
 
   /**
@@ -104,10 +111,6 @@ class NotificationImpl(private val decorView: View) : INotification {
    * 自定义动画
    */
   var animations: ((view: AppCompatTextView) -> AnimatorSet)? = null
-
-  init {
-
-  }
 
   override fun showNotificaion() {
     if (isAnimating) return
@@ -127,16 +130,17 @@ class NotificationImpl(private val decorView: View) : INotification {
       }
     } else {
       val perfomAnimation = { detal: Float ->
-        val animator = ObjectAnimator.ofFloat(notificationView, "translationY", -detal, detal * 2F).apply {
-          duration = this@NotificationImpl.duration
-        }
+        val animator =
+          ObjectAnimator.ofFloat(notificationView, propertyName, -detal, detal * 2F).apply {
+            duration = this@NotificationImpl.duration
+          }
         isAnimating = true
-        Timer().schedule(disappearTimeout + duration * 2) {
-          isAnimating = false
-        }
         animator.start()
         notificationView.postDelayed(disappearTimeout + duration) {
           animator.reverse()
+        }
+        Timer().schedule(disappearTimeout + duration * 2) {
+          isAnimating = false
         }
       }
       if (!addedView) {
