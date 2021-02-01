@@ -14,9 +14,9 @@ import androidx.core.view.postDelayed
 import com.github.grieey.core_ext.dp
 import com.github.grieey.core_ext.int
 import com.github.grieey.core_ext.sp
+import com.github.grieey.core_schedule.scheduleOnIO
+import com.github.grieey.core_schedule.scheduleOnMain
 import com.github.grieey.core_ui.R
-import java.util.*
-import kotlin.concurrent.schedule
 
 /**
  * description: 页面通知的实现类
@@ -134,12 +134,14 @@ class NotificationImpl(private val decorView: View) : INotification {
           ObjectAnimator.ofFloat(notificationView, propertyName, -detal, detal * 2F).apply {
             duration = this@NotificationImpl.duration
           }
+
         isAnimating = true
         animator.start()
-        notificationView.postDelayed(disappearTimeout + duration) {
+
+        scheduleOnMain(disappearTimeout + duration) {
           animator.reverse()
         }
-        Timer().schedule(disappearTimeout + duration * 2) {
+        scheduleOnIO(disappearTimeout + duration * 2) {
           isAnimating = false
         }
       }
@@ -164,10 +166,9 @@ class NotificationImpl(private val decorView: View) : INotification {
 
   private fun addView() {
     (decorView as ViewGroup)
-      .addView(notificationView,
-        FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
-          .apply {
-            this.gravity = Gravity.CENTER_HORIZONTAL
-          })
+      .addView(notificationView, FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+        .apply {
+          this.gravity = Gravity.CENTER_HORIZONTAL
+        })
   }
 }
