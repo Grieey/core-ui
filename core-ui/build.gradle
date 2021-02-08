@@ -62,8 +62,8 @@ dependencies {
   api "com.google.android.material:material:${androidx.material}"
   api "androidx.constraintlayout:constraintlayout:${androidx.constraintlayout}"
 
-  api "com.github.Grieey:CoreExt:${core.coreExt}"
-  api "com.github.Grieey:core-schedule:${core.coreSchedule}"
+  implementation "com.github.Grieey:core-ext:${core.coreExt}"
+  implementation "com.github.Grieey:core-schedule:${core.coreSchedule}"
 
   testImplementation 'junit:junit:4.+'
   androidTestImplementation 'androidx.test.ext:junit:1.1.2'
