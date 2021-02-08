@@ -10,12 +10,12 @@ import android.app.Application
 abstract class CoreApplication : Application() {
 
   override fun onCreate() {
-    INSTANCE = this
+    CORE_APP = this
     super.onCreate()
   }
 
   companion object {
-    lateinit var INSTANCE: CoreApplication
+    lateinit var CORE_APP: CoreApplication
       private set
   }
 }
