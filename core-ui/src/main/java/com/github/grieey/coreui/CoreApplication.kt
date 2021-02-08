@@ -8,4 +8,14 @@ import android.app.Application
  * @author: Grieey
  */
 abstract class CoreApplication : Application() {
+
+  override fun onCreate() {
+    INSTANCE = this
+    super.onCreate()
+  }
+
+  companion object {
+    lateinit var INSTANCE: CoreApplication
+      private set
+  }
 }
